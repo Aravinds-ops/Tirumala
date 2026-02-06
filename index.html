@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enterprise Tirumala Devotional App</title>
+<link rel="manifest" href="manifest.json">
+
+<style>
+body{font-family:Arial;margin:0;background:#f2f2f2}
+header{background:#8B0000;color:white;padding:14px;text-align:center;font-size:18px}
+.card{background:white;margin:10px;padding:15px;border-radius:12px;box-shadow:0 2px 6px #ccc}
+button{background:#8B0000;color:white;border:none;padding:8px;border-radius:6px;margin-top:5px}
+input,select{width:100%;padding:8px;margin-top:5px}
+.done{text-decoration:line-through;color:green}
+</style>
+
+<script src="app.js"></script>
+
+</head>
+<body onload="initApp()">
+
+<header>🛕 Enterprise Tirumala Devotional System</header>
+
+<div class="card">
+<h3>👤 Role Mode</h3>
+<select onchange="setRole(this.value)">
+<option>Admin</option>
+<option>Driver</option>
+<option>Devotee</option>
+</select>
+<p id="role"></p>
+</div>
+
+<div class="card">
+<h3>🛕 Temple Workflow</h3>
+<div id="t1">Kanipakam <button onclick="toggle('t1')">Done</button></div>
+<div id="t2">Varaha Swamy <button onclick="toggle('t2')">Done</button></div>
+<div id="t3">Venkateswara <button onclick="toggle('t3')">Done</button></div>
+<div id="t4">Padmavathi <button onclick="toggle('t4')">Done</button></div>
+<div id="t5">Srikalahasti <button onclick="toggle('t5')">Done</button></div>
+</div>
+
+<div class="card">
+<h3>👥 Room Allocation</h3>
+<input id="roomName" placeholder="Room No">
+<input id="memberName" placeholder="Member">
+<button onclick="assignRoom()">Assign</button>
+<ul id="rooms"></ul>
+</div>
+
+<div class="card">
+<h3>💰 Expense Manager</h3>
+<input id="expense" placeholder="Amount">
+<button onclick="addExpense()">Add Expense</button>
+<p id="totalExpense"></p>
+</div>
+
+<div class="card">
+<h3>⛽ Fuel Planner</h3>
+<input id="km" placeholder="KM">
+<input id="mil" placeholder="Mileage">
+<input id="price" placeholder="Fuel price">
+<button onclick="fuelCalc()">Calculate</button>
+<p id="fuel"></p>
+</div>
+
+<div class="card">
+<h3>📷 Prasadam / Photo Log</h3>
+<input id="photoText" placeholder="Note">
+<button onclick="addPhoto()">Add Log</button>
+<ul id="photos"></ul>
+</div>
+
+<div class="card">
+<h3>😴 Driver Fatigue Timer</h3>
+<button onclick="startDrive()">Start Driving Timer</button>
+<p id="driveStatus"></p>
+</div>
+
+<div class="card">
+<h3>🔔 Darshan Alarm</h3>
+<input id="alarmTime" type="time">
+<button onclick="setAlarm()">Set Alarm</button>
+<p id="alarmStatus"></p>
+</div>
+
+</body>
+</html>
