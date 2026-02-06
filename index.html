@@ -3,52 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tirumala ULTRA PRO Devotional App</title>
+<title>🛕 GOD LEVEL Tirumala Devotional App</title>
 
 <link rel="manifest" href="manifest.json">
 
 <style>
-body{margin:0;font-family:Arial;background:#f3f3f3}
+body{
+margin:0;font-family:Arial;
+background:linear-gradient(120deg,#4b0000,#8B0000,#b22222);
+color:white;
+}
+
 header{
-background:linear-gradient(45deg,#8B0000,#B22222);
-color:white;padding:16px;text-align:center;font-size:20px;
+text-align:center;
+padding:18px;
+font-size:22px;
+font-weight:bold;
 }
+
+.container{padding:12px}
+
 .card{
-background:white;margin:12px;border-radius:14px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);overflow:hidden;
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(12px);
+border-radius:16px;
+margin-bottom:14px;
+overflow:hidden;
+box-shadow:0 6px 14px rgba(0,0,0,0.4);
+transition:transform 0.3s;
 }
-.temple-img{width:100%;height:180px;object-fit:cover}
+.card:hover{transform:scale(1.02)}
+
+.temple-img{
+width:100%;height:180px;
+object-fit:cover;
+}
+
 .content{padding:12px}
+
 button{
-background:#8B0000;color:white;border:none;
-padding:8px;border-radius:6px;margin:5px 3px;
+background:#ffd700;
+color:black;
+border:none;
+padding:8px 10px;
+margin:4px;
+border-radius:8px;
+font-weight:bold;
 }
-.done{opacity:0.5;text-decoration:line-through}
-input{width:100%;padding:8px;margin-top:6px}
+
+.progress{
+background:#333;border-radius:10px;height:16px;margin-top:8px;
+}
+.bar{
+background:#ffd700;height:100%;width:0%;border-radius:10px;
+}
+
+.night{
+background:black !important;
+}
+
+input{width:100%;padding:8px;margin-top:6px;border-radius:6px;border:none}
 </style>
 
 <script>
-function save(){localStorage.setItem("ultra_graphic",document.body.innerHTML);}
-function load(){let d=localStorage.getItem("ultra_graphic");if(d)document.body.innerHTML=d;}
-function toggle(id){document.getElementById(id).classList.toggle("done");save();}
-function openMap(lat,long){window.open("https://maps.google.com/?q="+lat+","+long);}
-
-function addMember(){
-let n=document.getElementById("member").value;
-if(!n)return;
-let li=document.createElement("li");
-li.textContent=n;
-document.getElementById("members").appendChild(li);
+let completed=0;
+function toggleTemple(id){
+let el=document.getElementById(id);
+if(!el.classList.contains("done")){
+completed++;
+}
+el.classList.toggle("done");
+updateProgress();
 save();
 }
 
-function calcFuel(){
-let km=kmInput.value;
-let mil=milInput.value;
-let price=priceInput.value;
-let fuel=km/mil;
-let cost=fuel*price;
-fuelResult.innerText="Fuel "+fuel.toFixed(1)+"L | ₹"+cost.toFixed(0);
+function updateProgress(){
+let percent=(completed/5)*100;
+document.getElementById("bar").style.width=percent+"%";
+}
+
+function openMap(lat,long){
+window.open("https://maps.google.com/?q="+lat+","+long);
+}
+
+function toggleNight(){
+document.body.classList.toggle("night");
+}
+
+function addLog(){
+let t=document.getElementById("log").value;
+let li=document.createElement("li");
+li.textContent=t;
+document.getElementById("logs").appendChild(li);
+save();
+}
+
+function save(){
+localStorage.setItem("god_ui",document.body.innerHTML);
+}
+function load(){
+let d=localStorage.getItem("god_ui");
+if(d)document.body.innerHTML=d;
 }
 
 if("serviceWorker" in navigator){
@@ -59,12 +114,66 @@ navigator.serviceWorker.register("service-worker.js");
 
 <body onload="load()">
 
-<header>🛕 Tirumala ULTRA PRO Devotional App</header>
+<header>🛕 GOD-LEVEL Tirumala Devotional Experience</header>
 
-<!-- Kanipakam -->
+<div class="container">
+
+<div class="card">
+<div class="content">
+<h3>📊 Darshan Progress</h3>
+<div class="progress"><div id="bar" class="bar"></div></div>
+<button onclick="toggleNight()">🌙 Night Mode</button>
+</div></div>
+
+<!-- Temple Cards -->
 <div class="card" id="t1">
 <img class="temple-img" src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Kanipakam_Vinayaka_Temple.jpg">
 <div class="content">
-<h3>Kanipakam Vinayaka Temple</h3>
-<button onclick="toggle('t1')">Mark Done</button>
-<button onclick="openMap(1
+<h3>Kanipakam Vinayaka</h3>
+<button onclick="toggleTemple('t1')">Done</button>
+<button onclick="openMap(13.2816,79.1053)">GPS</button>
+</div></div>
+
+<div class="card" id="t2">
+<img class="temple-img" src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Varaha_Swamy_Temple_Tirumala.jpg">
+<div class="content">
+<h3>Varaha Swamy</h3>
+<button onclick="toggleTemple('t2')">Done</button>
+<button onclick="openMap(13.6833,79.3470)">GPS</button>
+</div></div>
+
+<div class="card" id="t3">
+<img class="temple-img" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Tirumala_Temple.jpg">
+<div class="content">
+<h3>Sri Venkateswara</h3>
+<button onclick="toggleTemple('t3')">Done</button>
+<button onclick="openMap(13.6830,79.3470)">GPS</button>
+</div></div>
+
+<div class="card" id="t4">
+<img class="temple-img" src="https://upload.wikimedia.org/wikipedia/commons/1/18/Padmavathi_Temple.jpg">
+<div class="content">
+<h3>Padmavathi Ammavari</h3>
+<button onclick="toggleTemple('t4')">Done</button>
+<button onclick="openMap(13.6288,79.4192)">GPS</button>
+</div></div>
+
+<div class="card" id="t5">
+<img class="temple-img" src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Srikalahasti_Temple.jpg">
+<div class="content">
+<h3>Srikalahasti</h3>
+<button onclick="toggleTemple('t5')">Done</button>
+<button onclick="openMap(13.7498,79.6984)">GPS</button>
+</div></div>
+
+<div class="card">
+<div class="content">
+<h3>🪔 Prasadam / Aarti Log</h3>
+<input id="log" placeholder="Add devotional note">
+<button onclick="addLog()">Add</button>
+<ul id="logs"></ul>
+</div></div>
+
+</div>
+</body>
+</html>
