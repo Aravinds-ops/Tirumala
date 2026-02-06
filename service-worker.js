@@ -1,5 +1,5 @@
-const CACHE="tirumala-enterprise-v1";
-const urls=["/","/index.html","/app.js","/manifest.json"];
+const CACHE="tirumala-ultra-graphics-v1";
+const urls=["/","/index.html","/manifest.json"];
 
 self.addEventListener("install",e=>{
 e.waitUntil(caches.open(CACHE).then(c=>c.addAll(urls)));
