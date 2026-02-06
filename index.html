@@ -3,87 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Enterprise Tirumala Devotional App</title>
+<title>Tirumala ULTRA PRO Devotional App</title>
+
 <link rel="manifest" href="manifest.json">
 
 <style>
-body{font-family:Arial;margin:0;background:#f2f2f2}
-header{background:#8B0000;color:white;padding:14px;text-align:center;font-size:18px}
-.card{background:white;margin:10px;padding:15px;border-radius:12px;box-shadow:0 2px 6px #ccc}
-button{background:#8B0000;color:white;border:none;padding:8px;border-radius:6px;margin-top:5px}
-input,select{width:100%;padding:8px;margin-top:5px}
-.done{text-decoration:line-through;color:green}
+body{margin:0;font-family:Arial;background:#f3f3f3}
+header{
+background:linear-gradient(45deg,#8B0000,#B22222);
+color:white;padding:16px;text-align:center;font-size:20px;
+}
+.card{
+background:white;margin:12px;border-radius:14px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);overflow:hidden;
+}
+.temple-img{width:100%;height:180px;object-fit:cover}
+.content{padding:12px}
+button{
+background:#8B0000;color:white;border:none;
+padding:8px;border-radius:6px;margin:5px 3px;
+}
+.done{opacity:0.5;text-decoration:line-through}
+input{width:100%;padding:8px;margin-top:6px}
 </style>
 
-<script src="app.js"></script>
+<script>
+function save(){localStorage.setItem("ultra_graphic",document.body.innerHTML);}
+function load(){let d=localStorage.getItem("ultra_graphic");if(d)document.body.innerHTML=d;}
+function toggle(id){document.getElementById(id).classList.toggle("done");save();}
+function openMap(lat,long){window.open("https://maps.google.com/?q="+lat+","+long);}
 
+function addMember(){
+let n=document.getElementById("member").value;
+if(!n)return;
+let li=document.createElement("li");
+li.textContent=n;
+document.getElementById("members").appendChild(li);
+save();
+}
+
+function calcFuel(){
+let km=kmInput.value;
+let mil=milInput.value;
+let price=priceInput.value;
+let fuel=km/mil;
+let cost=fuel*price;
+fuelResult.innerText="Fuel "+fuel.toFixed(1)+"L | ₹"+cost.toFixed(0);
+}
+
+if("serviceWorker" in navigator){
+navigator.serviceWorker.register("service-worker.js");
+}
+</script>
 </head>
-<body onload="initApp()">
 
-<header>🛕 Enterprise Tirumala Devotional System</header>
+<body onload="load()">
 
-<div class="card">
-<h3>👤 Role Mode</h3>
-<select onchange="setRole(this.value)">
-<option>Admin</option>
-<option>Driver</option>
-<option>Devotee</option>
-</select>
-<p id="role"></p>
-</div>
+<header>🛕 Tirumala ULTRA PRO Devotional App</header>
 
-<div class="card">
-<h3>🛕 Temple Workflow</h3>
-<div id="t1">Kanipakam <button onclick="toggle('t1')">Done</button></div>
-<div id="t2">Varaha Swamy <button onclick="toggle('t2')">Done</button></div>
-<div id="t3">Venkateswara <button onclick="toggle('t3')">Done</button></div>
-<div id="t4">Padmavathi <button onclick="toggle('t4')">Done</button></div>
-<div id="t5">Srikalahasti <button onclick="toggle('t5')">Done</button></div>
-</div>
-
-<div class="card">
-<h3>👥 Room Allocation</h3>
-<input id="roomName" placeholder="Room No">
-<input id="memberName" placeholder="Member">
-<button onclick="assignRoom()">Assign</button>
-<ul id="rooms"></ul>
-</div>
-
-<div class="card">
-<h3>💰 Expense Manager</h3>
-<input id="expense" placeholder="Amount">
-<button onclick="addExpense()">Add Expense</button>
-<p id="totalExpense"></p>
-</div>
-
-<div class="card">
-<h3>⛽ Fuel Planner</h3>
-<input id="km" placeholder="KM">
-<input id="mil" placeholder="Mileage">
-<input id="price" placeholder="Fuel price">
-<button onclick="fuelCalc()">Calculate</button>
-<p id="fuel"></p>
-</div>
-
-<div class="card">
-<h3>📷 Prasadam / Photo Log</h3>
-<input id="photoText" placeholder="Note">
-<button onclick="addPhoto()">Add Log</button>
-<ul id="photos"></ul>
-</div>
-
-<div class="card">
-<h3>😴 Driver Fatigue Timer</h3>
-<button onclick="startDrive()">Start Driving Timer</button>
-<p id="driveStatus"></p>
-</div>
-
-<div class="card">
-<h3>🔔 Darshan Alarm</h3>
-<input id="alarmTime" type="time">
-<button onclick="setAlarm()">Set Alarm</button>
-<p id="alarmStatus"></p>
-</div>
-
-</body>
-</html>
+<!-- Kanipakam -->
+<div class="card" id="t1">
+<img class="temple-img" src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Kanipakam_Vinayaka_Temple.jpg">
+<div class="content">
+<h3>Kanipakam Vinayaka Temple</h3>
+<button onclick="toggle('t1')">Mark Done</button>
+<button onclick="openMap(1
