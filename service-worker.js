@@ -1,4 +1,4 @@
-const CACHE="tirumala-ultra-graphics-v1";
+const CACHE="god-level-tirumala-v1";
 const urls=["/","/index.html","/manifest.json"];
 
 self.addEventListener("install",e=>{
